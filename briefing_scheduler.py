@@ -46,59 +46,68 @@ North Node Aries = destiny is in leadership and pioneering."""
 
 def build_system_prompt():
     today = date.today().strftime("%A, %B %d, %Y")
-    return f"""You are compiling Giselle's Morning Briefing — a deep daily digest for Giselle, a third-year CS + Computer Engineering student at Dartmouth (graduating 2027, GPA 3.85). She is job-hunting for software/AI engineering roles.
+    return f"""You are compiling Giselle's Morning Briefing for {today}.
 
-TODAY: {today}
+Giselle is a third-year CS + CE student at Dartmouth (graduating 2027, GPA 3.85), job-hunting for software/AI engineering roles.
 
-LENS: After every story (except Celebrity Drama and Astrology), append on its own line:
-→ Why it matters for you: [one blunt, specific sentence about job market signal, skill to study, or industry direction by 2027]
+CRITICAL RULES:
+- Do NOT include any internal monologue, search commentary, or phrases like "let me search" or "now I have all the information"
+- Output ONLY the final briefing, nothing else
+- Keep each section to the 2–3 MOST IMPORTANT stories only — quality over quantity
+- Each story: 2 sentences max. Be punchy.
+- After each story (except Drama and Astrology): → Why it matters for you: [one blunt sentence]
 
-Search the web for today's actual news. Compile with EXACTLY these sections:
+Sources to pull from: AI Valley, Exec Sum, TLDR AI, TLDR Dev, TLDR Design, New York Times, Hacker News, Substack, The Guardian, BBC, 人民日报, South China Morning Post, Bloomberg Tech, Morning Brew Daily, ArXiv CS/AI
+
+If the source is an opinion piece, note that in the summary. If it's a data-driven news story, include the key numbers. Always be specific with names, dates, and details.
+
+Compile with EXACTLY these sections:
 
 ## ◈ AI & Tech
-4–6 stories. LLM releases, GPU/chip news, dev tools, AI systems, CS research.
+Top 3 stories. LLM releases, GPU/chip news, dev tools, AI research.
 **Bold headline**
-2–3 sentence summary. (Source)
+2 sentence summary. (Source)
 → Why it matters for you: sentence
 
 ## △ Markets & Finance
-4–5 stories. Exact S&P/NASDAQ/Dow numbers. Tech stock moves. Macro.
+Top 2 stories. Key index numbers + biggest tech mover.
 **Bold headline**
-Summary with numbers. (Source)
+Summary with exact numbers. (Source)
 → Why it matters for you: sentence
 
 ## ○ International
-4–5 stories. Geopolitics, conflicts, diplomacy.
+Top 2 stories. Biggest geopolitical developments.
 **Bold headline**
 Summary. (Source)
 → Why it matters for you: sentence
 
 ## ◆ China Focus
-3–4 stories. Chinese tech, policy, US-China, Chinese AI.
+Top 2 stories. Chinese tech, policy, US-China.
 **Bold headline**
 Summary. (Source)
 → Why it matters for you: sentence
 
 ## ◉ Startups & VC
-3–4 stories. Funding rounds, acquisitions, hot launches, VC trends.
+Top 2 stories. Biggest funding rounds or acquisitions.
 **Bold headline**
 Summary. (Source)
 → Why it matters for you: sentence
 
 ## ◇ Exec Pulse
-3–4 items from: Elon Musk, Sam Altman, Mark Zuckerberg, Tim Cook, Andy Jassy, Sundar Pichai, Jensen Huang, Dario Amodei, Satya Nadella, Andrej Karpathy, Marc Andreessen.
+Top 2 items from: Elon Musk, Sam Altman, Mark Zuckerberg, Tim Cook, Andy Jassy, Sundar Pichai, Jensen Huang, Dario Amodei, Satya Nadella, Andrej Karpathy.
 **[Person] — headline**
 Summary. (Source)
 → Why it matters for you: sentence
 
 ## ✦ Drama
-2–3 items. Brief. No lens needed.
+1–2 items MAX. One line each. No lens needed.
 
 ## ♑ Your Chart
-Write Giselle a real daily horoscope using her ACTUAL natal chart and today's planetary transits.
-Reference real placements by name. Grounded, career-focused, personal. 5–6 sentences flowing paragraph.
+3–4 sentences. Real natal chart reading based on today's transits. Career-focused, specific, no generic Capricorn content.
 
 {NATAL_SUMMARY}"""
+
+
 
 
 def compile_briefing() -> str:
