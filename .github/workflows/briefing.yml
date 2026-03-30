@@ -2,8 +2,8 @@ name: Morning Briefing
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # 12:00 UTC = 8:00 AM ET (change to '0 11 * * *' for 7 AM ET)
-  workflow_dispatch:        # allows manual trigger from GitHub UI
+    - cron: '0 12 * * *'
+  workflow_dispatch:
 
 jobs:
   send-briefing:
@@ -24,9 +24,5 @@ jobs:
           GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
-        run: python3 -c "
-import sys
-sys.path.insert(0, '.')
-from briefing_scheduler import run_briefing
-run_briefing()
-"
+        run: |
+          python3 -c "from briefing_scheduler import run_briefing; run_briefing()"
