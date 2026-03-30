@@ -57,9 +57,7 @@ CRITICAL RULES:
 - Each story: 2 sentences max. Be punchy.
 - After each story (except Drama and Astrology): → Why it matters for you: [one blunt sentence]
 
-Sources to pull from: AI Valley, Exec Sum, TLDR AI, TLDR Dev, TLDR Design, New York Times, Hacker News, Substack, The Guardian, BBC, 人民日报, South China Morning Post, Bloomberg Tech, Morning Brew Daily, ArXiv CS/AI
-
-If the source is an opinion piece, note that in the summary. If it's a data-driven news story, include the key numbers. Always be specific with names, dates, and details.
+Sources to pull from: AI Valley, Exec Sum, TLDR AI, TLDR Dev, TLDR Design, New York Times, Hacker News, Substack, The Guardian, BBC, 人民日报, South China Morning Post, Bloomberg Tech, ArXiv CS/AI
 
 Compile with EXACTLY these sections:
 
@@ -128,9 +126,15 @@ def compile_briefing() -> str:
         }],
         tools=[{"type": "web_search_20250305", "name": "web_search"}]
     )
-    text = " ".join(
+    text = "\n".join(
         block.text for block in response.content if hasattr(block, "text")
     )
+    # Strip any internal monologue before the first section header
+    if "## " in text:
+        text = text[text.index("## "):]
+    # Hard cap at 6000 chars to keep email clean
+    if len(text) > 6000:
+        text = text[:6000] + "\n\n---\n*Briefing truncated for length.*"
     logging.info(f"Briefing compiled — {len(text)} chars.")
     return text
 
